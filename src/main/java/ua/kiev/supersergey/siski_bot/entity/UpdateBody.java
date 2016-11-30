@@ -1,21 +1,26 @@
 package ua.kiev.supersergey.siski_bot.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by sergey on 29.11.2016.
  */
 public class UpdateBody {
-    private int update_id;
+    @JsonProperty("update_id")
+    private int updateId;
     private Message message;
+    @JsonProperty("callback_query")
+    private CallBackQuery callBackQuery;
 
     public UpdateBody() {
     }
 
-    public int getUpdate_id() {
-        return update_id;
+    public int getUpdateId() {
+        return updateId;
     }
 
-    public void setUpdate_id(int update_id) {
-        this.update_id = update_id;
+    public void setUpdateId(int updateId) {
+        this.updateId = updateId;
     }
 
     public Message getMessage() {
@@ -24,5 +29,13 @@ public class UpdateBody {
 
     public void setMessage(Message message) {
         this.message = message;
+    }
+
+    public CallBackQuery getCallBackQuery() {
+        return callBackQuery;
+    }
+
+    public void setCallBackQuery(CallBackQuery callBackQuery) {
+        this.callBackQuery = callBackQuery;
     }
 }

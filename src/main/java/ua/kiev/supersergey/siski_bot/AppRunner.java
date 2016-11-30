@@ -1,15 +1,15 @@
 package ua.kiev.supersergey.siski_bot;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import ua.kiev.supersergey.siski_bot.entity.Update;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
-import ua.kiev.supersergey.siski_bot.updater.UpdateChecker;
+import ua.kiev.supersergey.siski_bot.reply_manager.ReplyQueue;
+import ua.kiev.supersergey.siski_bot.reply_manager.ReplyService;
+import ua.kiev.supersergey.siski_bot.rest.RestService;
 
-import javax.annotation.PostConstruct;
+import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 
 /**
@@ -18,23 +18,31 @@ import java.util.concurrent.Future;
 @Component
 public class AppRunner implements CommandLineRunner {
     @Autowired
-    private UpdateChecker updateChecker;
+    private RestService restService;
+    @Autowired
+    private Executor executor;
+    @Autowired
+    private ReplyService replyService;
+
+    private int offset = 0;
 
     @Override
     public void run(String... strings) throws Exception {
         while (!Thread.currentThread().isInterrupted())
         {
-            Future<Update> updateFuture = updateChecker.checkForUpdate();
+            Future<Update> updateFuture = restService.getUpdates(offset);
             while (!updateFuture.isDone()) {
                 Thread.sleep(10L);
             }
             Update update = updateFuture.get();
             if (update.getOk().equals("true")) {
                 for (UpdateBody body : update.getResult()) {
-                    System.out.println(body.getMessage().getText());
+                    offset = body.getUpdateId() + 1;
+                    ReplyQueue.addUpdate(body);
+                    executor.execute(replyService);
                 }
             }
-            Thread.sleep(10000L);
+            Thread.sleep(1000L);
         }
     }
 }

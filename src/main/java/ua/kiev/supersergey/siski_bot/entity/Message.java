@@ -1,22 +1,25 @@
 package ua.kiev.supersergey.siski_bot.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by sergey on 29.11.2016.
  */
 public class Message {
-    private int message_id;
+    @JsonProperty("message_id")
+    private int messageId;
     private User from;
     private String text;
 
     public Message() {
     }
 
-    public int getMessage_id() {
-        return message_id;
+    public int getMessageId() {
+        return messageId;
     }
 
-    public void setMessage_id(int message_id) {
-        this.message_id = message_id;
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
     }
 
     public User getFrom() {
