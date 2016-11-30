@@ -1,11 +1,9 @@
-package ua.kiev.supersergey.siski_bot.reply_manager;
+package ua.kiev.supersergey.siski_bot.reply;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 
 import java.util.*;
-import java.util.concurrent.Executor;
 
 /**
  * Created by sergey on 30.11.2016.

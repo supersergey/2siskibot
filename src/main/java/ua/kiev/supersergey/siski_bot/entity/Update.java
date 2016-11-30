@@ -1,21 +1,24 @@
 package ua.kiev.supersergey.siski_bot.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by sergey on 29.11.2016.
  */
 public class Update {
-    private String ok;
+    @JsonProperty("ok")
+    private String status;
     private UpdateBody[] result;
 
     public Update() {
     }
 
-    public String getOk() {
-        return ok;
+    public String getStatus() {
+        return status;
     }
 
-    public void setOk(String ok) {
-        this.ok = ok;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public UpdateBody[] getResult() {

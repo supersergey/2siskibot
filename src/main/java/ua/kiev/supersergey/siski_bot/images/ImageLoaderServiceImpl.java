@@ -1,4 +1,4 @@
-package ua.kiev.supersergey.siski_bot.images_provider;
+package ua.kiev.supersergey.siski_bot.images;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
-import ua.kiev.supersergey.siski_bot.rest.RestService;
+import ua.kiev.supersergey.siski_bot.rest.RestServiceImpl;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
  * Created by sergey on 30.11.2016.
  */
 @Component
-public class ImageLoaderService {
+public class ImageLoaderServiceImpl implements ImageLoaderService {
     @Value("${images.url}")
     private String url;
     private List<String> images;
@@ -32,6 +32,7 @@ public class ImageLoaderService {
         images = loadImages();
     }
 
+    @Override
     public String getRandomImage() {
         if (!CollectionUtils.isEmpty(images)) {
             int randomIndex = RANDOM_GENERATOR.nextInt(images.size());
@@ -45,7 +46,7 @@ public class ImageLoaderService {
     private List<String> loadImages() {
         RestTemplate template = new RestTemplate();
         ResponseEntity<String> entity = template.getForEntity(url + "/filelist.php", String.class);
-        if (!RestService.isError(entity.getStatusCode())) {
+        if (!RestServiceImpl.isError(entity.getStatusCode())) {
             String files = entity.getBody();
             JsonArray arr = new Gson().fromJson(files, JsonArray.class);
             return IntStream

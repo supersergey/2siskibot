@@ -1,28 +1,28 @@
-package ua.kiev.supersergey.siski_bot.reply_manager;
+package ua.kiev.supersergey.siski_bot.reply;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 import ua.kiev.supersergey.siski_bot.entity.constants.StringMessages;
 import ua.kiev.supersergey.siski_bot.rest.RestService;
+import ua.kiev.supersergey.siski_bot.rest.RestServiceImpl;
 
 /**
  * Created by sergey on 30.11.2016.
  */
 @Component
-public class ReplyService implements Runnable {
-    @Autowired
-    private RestService restService;
+public class ReplyServiceImpl implements ReplyService {
+    private RestService restServiceImpl;
 
-    public ReplyService() {
+    public ReplyServiceImpl(RestService restServiceImpl) {
+        this.restServiceImpl = restServiceImpl;
     }
 
     @Override
     public void run() {
         UpdateBody updateBody = ReplyQueue.getNext();
         if (updateBody.getCallBackQuery() != null) {
-            restService.replyToCallBackQuery(updateBody);
+            restServiceImpl.replyToCallBackQuery(updateBody);
         } else {
             String command = updateBody.getMessage().getText();
             doReply(updateBody, command);
@@ -35,13 +35,13 @@ public class ReplyService implements Runnable {
         }
         switch (command) {
             case StringMessages.START:
-                restService.sendStartMessage(updateBody);
+                restServiceImpl.sendStartMessage(updateBody);
                 break;
             case StringMessages.SEND_ME_SISKI:
-                restService.sendPhoto(updateBody);
+                restServiceImpl.sendPhoto(updateBody);
                 break;
             default:
-                restService.sendUnknownMessage(updateBody);
+                restServiceImpl.sendUnknownMessage(updateBody);
                 break;
         }
     }
