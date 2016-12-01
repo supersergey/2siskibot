@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by sergey on 30.11.2016.
  */
-public class CallBackQuery {
+public class CallbackQuery {
     private String id;
     private User from;
     private Message message;
@@ -13,7 +13,7 @@ public class CallBackQuery {
     @JsonProperty("inline_message_id")
     private String inlineMessageId;
 
-    public CallBackQuery() {
+    public CallbackQuery() {
     }
 
     public String getId() {

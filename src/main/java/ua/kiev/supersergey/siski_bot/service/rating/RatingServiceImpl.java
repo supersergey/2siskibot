@@ -1,28 +1,24 @@
-package ua.kiev.supersergey.siski_bot.rating;
+package ua.kiev.supersergey.siski_bot.service.rating;
 
-import org.springframework.stereotype.Component;
-import ua.kiev.supersergey.siski_bot.entity.CallBackQuery;
+import ua.kiev.supersergey.siski_bot.entity.CallbackQuery;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by sergey on 01.12.2016.
  */
-@Component
 public class RatingServiceImpl implements RatingService {
     private Map<String, Integer> rating;
 
-    @PostConstruct
-    private void init() {
-        rating = new HashMap<>();
+    public RatingServiceImpl() {
+        this.rating = new HashMap<>();
     }
 
     @Override
     public void addRating(UpdateBody updateBody) {
-        CallBackQuery callBackQuery = updateBody.getCallBackQuery();
+        CallbackQuery callBackQuery = updateBody.getCallBackQuery();
         if (callBackQuery != null) {
             String[] data = callBackQuery.getData().split(":::");
             if (data.length == 2) {
@@ -33,7 +29,7 @@ public class RatingServiceImpl implements RatingService {
         }
     }
 
-    public double getRating(String fileName) {
+    public double  getRating(String fileName) {
         return rating.get(fileName)/rating.size();
     }
 

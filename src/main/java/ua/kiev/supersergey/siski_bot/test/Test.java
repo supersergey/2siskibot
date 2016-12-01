@@ -1,5 +1,6 @@
 package ua.kiev.supersergey.siski_bot.test;
 
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -15,5 +16,9 @@ public class Test {
         while (!queue.isEmpty()) {
             System.out.println(queue.poll());
         }
+    }
+
+    private <T> T getElement(List<T> list) {
+        return list.get(0);
     }
 }

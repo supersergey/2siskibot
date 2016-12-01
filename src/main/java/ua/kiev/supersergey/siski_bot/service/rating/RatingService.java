@@ -1,4 +1,4 @@
-package ua.kiev.supersergey.siski_bot.rating;
+package ua.kiev.supersergey.siski_bot.service.rating;
 
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 

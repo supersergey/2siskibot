@@ -10,7 +10,7 @@ public class UpdateBody {
     private int updateId;
     private Message message;
     @JsonProperty("callback_query")
-    private CallBackQuery callBackQuery;
+    private CallbackQuery callBackQuery;
 
     public UpdateBody() {
     }
@@ -31,11 +31,11 @@ public class UpdateBody {
         this.message = message;
     }
 
-    public CallBackQuery getCallBackQuery() {
+    public CallbackQuery getCallBackQuery() {
         return callBackQuery;
     }
 
-    public void setCallBackQuery(CallBackQuery callBackQuery) {
+    public void setCallBackQuery(CallbackQuery callBackQuery) {
         this.callBackQuery = callBackQuery;
     }
 }

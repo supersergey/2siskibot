@@ -1,4 +1,4 @@
-package ua.kiev.supersergey.siski_bot.reply;
+package ua.kiev.supersergey.siski_bot.reply_manager;
 
 import org.springframework.stereotype.Service;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
@@ -25,4 +25,5 @@ public class ReplyQueue {
     public static UpdateBody getNext() {
         return pending.poll();
     }
+
 }
