@@ -26,7 +26,6 @@ public class AppRunner implements CommandLineRunner {
     private int offset = 0;
 
     @Override
-    @Scheduled(fixedDelay = 1000)
     public void run(String... strings) throws Exception {
         while (!Thread.currentThread().isInterrupted())
         {
