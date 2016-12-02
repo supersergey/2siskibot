@@ -3,7 +3,7 @@ package ua.kiev.supersergey.siski_bot.reply_manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import ua.kiev.supersergey.siski_bot.actions.SendCallBackQuery;
+import ua.kiev.supersergey.siski_bot.actions.SendCallbackQuery;
 import ua.kiev.supersergey.siski_bot.actions.SendPhoto;
 import ua.kiev.supersergey.siski_bot.actions.SendTextMessage;
 import ua.kiev.supersergey.siski_bot.entity.*;
@@ -33,7 +33,7 @@ public class ReplyManager implements Runnable {
         if (updateBody != null) {
             if (updateBody.getCallBackQuery() != null) {
                 ratingService.addRating(updateBody);
-                new SendCallBackQuery().send(restService, updateBody);
+                new SendCallbackQuery().send(restService, updateBody);
             } else {
                 String command = updateBody.getMessage().getText();
                 doReply(updateBody, command);
