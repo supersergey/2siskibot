@@ -1,5 +1,4 @@
 package ua.kiev.supersergey.siski_bot.entity;
-
 /**
  * Created by sergey on 02.12.2016.
  */
@@ -9,4 +8,3 @@ public class AnswerCallbackQueryFactory {
         return new AnswerCallbackQuery(id, text);
     }
 }
-

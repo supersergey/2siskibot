@@ -1,7 +1,5 @@
 package ua.kiev.supersergey.siski_bot.entity;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * Created by sergey on 30.11.2016.
  */
