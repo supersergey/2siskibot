@@ -13,11 +13,10 @@ import ua.kiev.supersergey.siski_bot.service.rest.RestService;
 import ua.kiev.supersergey.siski_bot.service.rest.RestServiceImpl;
 import ua.kiev.supersergey.siski_bot.util.RestUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Created by sergey on 30.11.2016.
@@ -54,12 +53,14 @@ public class ImageLoaderServiceImpl implements ImageLoaderService {
     private List<String> loadImages() {
         String files = getImagesList(url + "/filelist.php");
         JsonArray arr = new Gson().fromJson(files, JsonArray.class);
-        return IntStream
-                .range(0, arr.size())
-                .mapToObj(i -> arr.get(i).getAsString())
-                .filter(i -> !i.matches("^\\.{1,2}$"))
-                .filter(i -> i.toLowerCase().endsWith("jpg"))
-                .collect(Collectors.toList());
+        List<String> images = new ArrayList<>();
+        for (int i = 0; i < arr.size(); i++) {
+            String s = arr.get(i).getAsString();
+            if (!s.matches("^\\.{1,2}$") && s.toLowerCase().endsWith("jpg")) {
+                images.add(s);
+            }
+        }
+        return images;
     }
 
     private String getImagesList(String url) {

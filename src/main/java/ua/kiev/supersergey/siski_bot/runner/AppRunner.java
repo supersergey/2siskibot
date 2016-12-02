@@ -3,6 +3,7 @@ package ua.kiev.supersergey.siski_bot.runner;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ua.kiev.supersergey.siski_bot.entity.Update;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
@@ -25,6 +26,7 @@ public class AppRunner implements CommandLineRunner {
     private int offset = 0;
 
     @Override
+    @Scheduled(fixedDelay = 1000)
     public void run(String... strings) throws Exception {
         while (!Thread.currentThread().isInterrupted())
         {
