@@ -10,6 +10,11 @@ import ua.kiev.supersergey.siski_bot.entity.Update;
 @RestController
 public class UpdateLoader {
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String getHello() {
+        return "Hello worlds";
+    }
+
     @RequestMapping(value = "/update/send", method = RequestMethod.GET)
     public String getUpdates() {
         return "Hello worlds";
