@@ -41,11 +41,6 @@ public class ReplyManager implements Runnable {
         }
     }
 
-    public Update loadUpdates(int offset) throws ExecutionException, InterruptedException {
-        Future<Update> updates = restService.getUpdates(offset);
-        return UpdateFactory.extractUpdate(updates);
-    }
-
     private void doReply(UpdateBody updateBody, String command) {
         if (StringUtils.isEmpty(command)) {
             return;
