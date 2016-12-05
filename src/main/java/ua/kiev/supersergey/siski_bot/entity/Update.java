@@ -2,6 +2,8 @@ package ua.kiev.supersergey.siski_bot.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Arrays;
+
 /**
  * Created by sergey on 29.11.2016.
  */
@@ -27,5 +29,13 @@ public class Update {
 
     public void setResult(UpdateBody[] result) {
         this.result = result;
+    }
+
+    @Override
+    public String toString() {
+        return "Update{" +
+                "status='" + status + '\'' +
+                ", result=" + Arrays.toString(result) +
+                '}';
     }
 }

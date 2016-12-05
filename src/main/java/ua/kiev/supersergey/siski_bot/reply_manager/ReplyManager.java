@@ -6,14 +6,11 @@ import org.springframework.util.StringUtils;
 import ua.kiev.supersergey.siski_bot.actions.SendCallbackQuery;
 import ua.kiev.supersergey.siski_bot.actions.SendPhoto;
 import ua.kiev.supersergey.siski_bot.actions.SendTextMessage;
-import ua.kiev.supersergey.siski_bot.entity.*;
+import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 import ua.kiev.supersergey.siski_bot.entity.constants.StringMessages;
 import ua.kiev.supersergey.siski_bot.service.images.ImageLoaderService;
 import ua.kiev.supersergey.siski_bot.service.rating.RatingService;
 import ua.kiev.supersergey.siski_bot.service.rest.RestService;
-
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 /**
  * Created by sergey on 30.11.2016.

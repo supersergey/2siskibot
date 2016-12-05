@@ -1,10 +1,12 @@
 package ua.kiev.supersergey.siski_bot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by sergey on 29.11.2016.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateBody {
     @JsonProperty("update_id")
     private int updateId;

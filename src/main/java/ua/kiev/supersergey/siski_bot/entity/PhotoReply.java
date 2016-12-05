@@ -1,5 +1,6 @@
 package ua.kiev.supersergey.siski_bot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.kiev.supersergey.siski_bot.entity.keyboard.AbstractKeyboard;
 import ua.kiev.supersergey.siski_bot.entity.keyboard.Keyboard;
@@ -7,6 +8,7 @@ import ua.kiev.supersergey.siski_bot.entity.keyboard.Keyboard;
 /**
  * Created by sergey on 30.11.2016.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PhotoReply extends Reply {
     @JsonProperty("photo")
     private String photo;

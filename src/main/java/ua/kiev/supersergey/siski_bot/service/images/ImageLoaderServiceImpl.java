@@ -31,7 +31,6 @@ public class ImageLoaderServiceImpl implements ImageLoaderService {
     public ImageLoaderServiceImpl(String url) {
         this.url = url;
         restTemplate = new RestTemplate();
-        images = loadImages();
     }
 
     @Override
@@ -41,15 +40,13 @@ public class ImageLoaderServiceImpl implements ImageLoaderService {
 
     @Override
     public String getRandomImage() {
-        if (!CollectionUtils.isEmpty(images)) {
-            int randomIndex = RANDOM_GENERATOR.nextInt(images.size());
-            return images.get(randomIndex);
-        } else {
-            return "";
-        }
+        if (CollectionUtils.isEmpty(images)) {
+            images = loadImages();
+        };
+        int randomIndex = RANDOM_GENERATOR.nextInt(images.size());
+        return images.get(randomIndex);
     }
 
-    @Scheduled(fixedDelay = 60000)
     private List<String> loadImages() {
         String files = getImagesList(url + "/filelist.php");
         JsonArray arr = new Gson().fromJson(files, JsonArray.class);

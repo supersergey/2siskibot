@@ -1,18 +1,13 @@
 package ua.kiev.supersergey.siski_bot.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ua.kiev.supersergey.siski_bot.entity.Update;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 import ua.kiev.supersergey.siski_bot.reply_manager.ReplyManager;
 import ua.kiev.supersergey.siski_bot.reply_manager.ReplyQueue;
-
-import java.util.concurrent.Executor;
 
 /**
  * Created by sergey on 02.12.2016.
@@ -25,20 +20,20 @@ public class UpdateLoader {
     @Autowired
     private ReplyManager replyManager;
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/1", method = RequestMethod.GET)
     @ResponseBody
-    public String test() {
-        System.out.println("Hello");
-        return "Hello worldzzzzzzzzzz 3";
+    public String hello() {
+        return "Вас приветствует сиськибот!!!!-4";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public void loadUpdate(@RequestParam(required = true) Update update) {
-        for (UpdateBody e : update.getResult()) {
-            ReplyQueue.addUpdate(e);
-            executor.execute(replyManager);
-            LOGGER.info("Received from " + e.getMessage().getFrom() + ": " + e.getMessage().getText());
-        }
+    public void loadUpdate(@RequestBody(required = false) String update) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        UpdateBody updateBody = mapper.readValue(update, UpdateBody.class);
+        System.out.println(updateBody);
+        ReplyQueue.addUpdate(updateBody);
+        replyManager.run();
+        LOGGER.info("Received from " + updateBody.getMessage().getFrom() + ": " + updateBody.getMessage().getText());
     }
 }
