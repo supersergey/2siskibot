@@ -41,13 +41,13 @@ public class ImageLoaderServiceImpl implements ImageLoaderService {
     @Override
     public String getRandomImage() {
         if (CollectionUtils.isEmpty(images)) {
-            images = loadImages();
+            loadImages();
         };
         int randomIndex = RANDOM_GENERATOR.nextInt(images.size());
         return images.get(randomIndex);
     }
 
-    private List<String> loadImages() {
+    public int loadImages() {
         String files = getImagesList(url + "/filelist.php");
         JsonArray arr = new Gson().fromJson(files, JsonArray.class);
         List<String> images = new ArrayList<>();
@@ -57,7 +57,8 @@ public class ImageLoaderServiceImpl implements ImageLoaderService {
                 images.add(s);
             }
         }
-        return images;
+        this.images = images;
+        return images.size();
     }
 
     private String getImagesList(String url) {

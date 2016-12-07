@@ -16,6 +16,8 @@ import ua.kiev.supersergey.siski_bot.service.rating.RatingService;
 import ua.kiev.supersergey.siski_bot.service.rating.RatingServiceImpl;
 import ua.kiev.supersergey.siski_bot.service.rest.RestService;
 import ua.kiev.supersergey.siski_bot.service.rest.RestServiceImpl;
+import ua.kiev.supersergey.siski_bot.service.storage.StorageService;
+import ua.kiev.supersergey.siski_bot.service.storage.StorageServiceImpl;
 
 /**
  * Created by sergey on 29.11.2016.
@@ -53,4 +55,7 @@ public class AppConfig {
     public RestService restService() {
         return new RestServiceImpl(telegramUrl, token);
     }
+
+    @Bean
+    public StorageService storageService() {return new StorageServiceImpl();}
 }

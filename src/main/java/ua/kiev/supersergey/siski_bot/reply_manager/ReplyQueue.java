@@ -1,6 +1,7 @@
 package ua.kiev.supersergey.siski_bot.reply_manager;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 
 import java.util.*;
@@ -13,11 +14,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class ReplyQueue {
     private static ConcurrentLinkedQueue<UpdateBody> pending;
 
-    public ReplyQueue() {
-        pending = new ConcurrentLinkedQueue<>();
-    }
-
     public static void addUpdate(UpdateBody updateBody) {
+        if (pending == null) {
+            pending = new ConcurrentLinkedQueue<>();
+        }
         pending.add(updateBody);
     }
 

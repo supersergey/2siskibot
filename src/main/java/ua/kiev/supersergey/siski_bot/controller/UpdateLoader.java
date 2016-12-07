@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 import ua.kiev.supersergey.siski_bot.reply_manager.ReplyManager;
 import ua.kiev.supersergey.siski_bot.reply_manager.ReplyQueue;
+import ua.kiev.supersergey.siski_bot.service.images.ImageLoaderService;
 
 /**
  * Created by sergey on 02.12.2016.
@@ -16,9 +17,9 @@ import ua.kiev.supersergey.siski_bot.reply_manager.ReplyQueue;
 public class UpdateLoader {
     private static Logger LOGGER = Logger.getLogger(UpdateLoader.class);
     @Autowired
-    private ThreadPoolTaskExecutor executor;
-    @Autowired
     private ReplyManager replyManager;
+    @Autowired
+    private ImageLoaderService imageLoader;
 
     @RequestMapping(value = "/1", method = RequestMethod.GET)
     @ResponseBody
@@ -26,14 +27,20 @@ public class UpdateLoader {
         return "Вас приветствует сиськибот!!!!-4";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/images/load", method = RequestMethod.GET)
     @ResponseBody
+    public String loadImages() throws Exception {
+        return String.format("Total images: %d", imageLoader.loadImages());
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public void loadUpdate(@RequestBody(required = false) String update) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         UpdateBody updateBody = mapper.readValue(update, UpdateBody.class);
-        System.out.println(updateBody);
-        ReplyQueue.addUpdate(updateBody);
-        replyManager.run();
-        LOGGER.info("Received from " + updateBody.getMessage().getFrom() + ": " + updateBody.getMessage().getText());
+        if (updateBody != null && updateBody.getMessage() != null) {
+            ReplyQueue.addUpdate(updateBody);
+            replyManager.run();
+            LOGGER.info("Received from " + updateBody.getMessage().getFrom() + ": " + updateBody.getMessage().getText());
+        }
     }
 }

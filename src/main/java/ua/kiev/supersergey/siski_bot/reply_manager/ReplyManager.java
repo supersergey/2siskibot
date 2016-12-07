@@ -7,10 +7,12 @@ import ua.kiev.supersergey.siski_bot.actions.SendCallbackQuery;
 import ua.kiev.supersergey.siski_bot.actions.SendPhoto;
 import ua.kiev.supersergey.siski_bot.actions.SendTextMessage;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
+import ua.kiev.supersergey.siski_bot.entity.UserDTOFactory;
 import ua.kiev.supersergey.siski_bot.entity.constants.StringMessages;
 import ua.kiev.supersergey.siski_bot.service.images.ImageLoaderService;
 import ua.kiev.supersergey.siski_bot.service.rating.RatingService;
 import ua.kiev.supersergey.siski_bot.service.rest.RestService;
+import ua.kiev.supersergey.siski_bot.service.storage.StorageService;
 
 /**
  * Created by sergey on 30.11.2016.
@@ -23,6 +25,8 @@ public class ReplyManager implements Runnable {
     private ImageLoaderService imageLoaderService;
     @Autowired
     private RatingService ratingService;
+    @Autowired
+    private StorageService storageService;
 
     @Override
     public void run() {
@@ -33,7 +37,8 @@ public class ReplyManager implements Runnable {
                 new SendCallbackQuery().send(restService, updateBody);
             } else {
                 String command = updateBody.getMessage().getText();
-                doReply(updateBody, command);
+                // doReply(updateBody, command);
+                storageService.addEntry(UserDTOFactory.getUserDTO(updateBody));
             }
         }
     }
@@ -51,7 +56,7 @@ public class ReplyManager implements Runnable {
             new SendTextMessage(StringMessages.HELP_TEXT).send(restService, updateBody);
             return;
         }
-        if (command.equalsIgnoreCase(StringMessages.SEND_ME_SISKI) || command.toLowerCase().contains(StringMessages.SISKI)) {
+        if (command.toLowerCase().contains(StringMessages.SISKI)) {
             String url = imageLoaderService.getPhotoUrl();
             String photoName = imageLoaderService.getRandomImage();
             new SendPhoto(url, photoName).send(restService, updateBody);

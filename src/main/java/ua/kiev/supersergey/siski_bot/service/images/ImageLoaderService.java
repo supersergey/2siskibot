@@ -6,4 +6,5 @@ package ua.kiev.supersergey.siski_bot.service.images;
 public interface ImageLoaderService {
     String getPhotoUrl();
     String getRandomImage();
+    int loadImages();
 }
