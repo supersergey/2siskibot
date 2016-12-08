@@ -4,21 +4,21 @@ package ua.kiev.supersergey.siski_bot.entity;
  * Created by sergey on 08.12.2016.
  */
 public class UserDTO {
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
-    private int messageId;
+    private long messageId;
     private String messageText;
     private long date;
 
     public UserDTO() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -38,11 +38,11 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public int getMessageId() {
+    public long getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(int messageId) {
+    public void setMessageId(long messageId) {
         this.messageId = messageId;
     }
 

@@ -37,8 +37,8 @@ public class ReplyManager implements Runnable {
                 new SendCallbackQuery().send(restService, updateBody);
             } else {
                 String command = updateBody.getMessage().getText();
-                // doReply(updateBody, command);
-                storageService.addEntry(UserDTOFactory.getUserDTO(updateBody));
+                doReply(updateBody, command);
+                storageService.add(UserDTOFactory.getUserDTO(updateBody));
             }
         }
     }

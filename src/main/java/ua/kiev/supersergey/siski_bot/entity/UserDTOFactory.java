@@ -1,5 +1,6 @@
 package ua.kiev.supersergey.siski_bot.entity;
 
+import com.google.appengine.api.datastore.Entity;
 import org.joda.time.DateTime;
 
 import java.util.Date;
@@ -20,6 +21,17 @@ public class UserDTOFactory {
                 result.setLastName(updateBody.getMessage().getFrom().getLastName());
             }
         }
+        return result;
+    }
+
+    public static UserDTO getUserFromEntity(Entity e) {
+        UserDTO result = new UserDTO();
+        result.setId((long) e.getProperty("user_id"));
+        result.setFirstName((String) e.getProperty("first_name"));
+        result.setLastName((String) e.getProperty("last_name"));
+        result.setMessageId((long) e.getProperty("message_id"));
+        result.setMessageText((String) e.getProperty("message_text"));
+        result.setDate((long) e.getProperty("created"));
         return result;
     }
 }
