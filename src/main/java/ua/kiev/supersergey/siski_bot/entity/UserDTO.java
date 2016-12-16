@@ -1,5 +1,11 @@
 package ua.kiev.supersergey.siski_bot.entity;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by sergey on 08.12.2016.
  */
@@ -10,6 +16,8 @@ public class UserDTO {
     private long messageId;
     private String messageText;
     private long date;
+
+    private final static SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     public UserDTO() {
     }
@@ -23,7 +31,7 @@ public class UserDTO {
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstName == null ? "" : firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -31,7 +39,7 @@ public class UserDTO {
     }
 
     public String getLastName() {
-        return lastName;
+        return lastName == null ? "" : lastName;
     }
 
     public void setLastName(String lastName) {
@@ -47,7 +55,7 @@ public class UserDTO {
     }
 
     public String getMessageText() {
-        return messageText;
+        return messageText == null ? "" : messageText;
     }
 
     public void setMessageText(String messageText) {
@@ -60,5 +68,17 @@ public class UserDTO {
 
     public void setDate(long date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", messageId=" + messageId +
+                ", messageText='" + messageText + '\'' +
+                ", date=" + FORMATTER.format(new Date(date)) +
+                '}';
     }
 }

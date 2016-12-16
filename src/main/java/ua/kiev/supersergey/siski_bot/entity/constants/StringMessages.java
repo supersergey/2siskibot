@@ -7,6 +7,8 @@ public class StringMessages {
     public static final String SEND_ME_SISKI = "Покажи сиськи!";
     public static final String HELP = "/help";
     public static String SISKI = "сиськи";
+    public static String SISKI_ENG1 = "tits";
+    public static String SISKI_ENG2 = "siski";
     public static final String START = "/start";
     public static String START_TEXT = "Это бот \"2 сиськи\". Привет, %s! Хочешь посмотреть сиськи? Тогда напиши мне \"сиськи\"";
     public static String UNKNOWN_COMMAND_TEXT = "Неизвестная команда, %s. Введи /help для получения списка команд. Или напиши мне \"сиськи\", и я покажу тебе сиськи!";

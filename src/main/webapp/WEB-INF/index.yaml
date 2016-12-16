@@ -1,0 +1,10 @@
+indexes:
+- kind: user_new
+  properties:
+  - name: user_id
+  - name: created
+
+- kind: user
+  properties:
+  - name: user_id
+  - name: created

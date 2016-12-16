@@ -3,7 +3,6 @@ package ua.kiev.supersergey.siski_bot.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.*;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 import ua.kiev.supersergey.siski_bot.entity.UserDTO;
@@ -18,8 +17,8 @@ import java.util.List;
  * Created by sergey on 02.12.2016.
  */
 @RestController
-public class UpdateLoader {
-    private static Logger LOGGER = Logger.getLogger(UpdateLoader.class);
+public class MainController {
+    private static Logger LOGGER = Logger.getLogger(MainController.class);
     @Autowired
     private ReplyManager replyManager;
     @Autowired
@@ -44,9 +43,22 @@ public class UpdateLoader {
         }
     }
 
-    @RequestMapping(value = "/stats/load", method = RequestMethod.GET)
+    @RequestMapping(value = "/stats", method = RequestMethod.GET)
     @ResponseBody
-    public List<UserDTO> loadStats(@RequestParam(required = false, defaultValue = "0") int limit) throws Exception {
-        return storageService.getAll(limit);
+    public List<UserDTO> loadStats() throws Exception {
+        return storageService.getAll(-1);
+    }
+
+    @RequestMapping(value = "/notify", method = RequestMethod.GET)
+    @ResponseBody
+    public List<UserDTO> loadStats(@RequestParam(required = true) int days) throws Exception {
+        List<UserDTO> users = storageService.getAll(days);
+        return users;
+    }
+
+    @RequestMapping(value = "/dbupdate", method = RequestMethod.GET)
+    @ResponseBody
+    public void updateDb() {
+        //storageService.updateDb();
     }
 }

@@ -56,7 +56,10 @@ public class ReplyManager implements Runnable {
             new SendTextMessage(StringMessages.HELP_TEXT).send(restService, updateBody);
             return;
         }
-        if (command.toLowerCase().contains(StringMessages.SISKI)) {
+        command = command.toLowerCase();
+        if (command.contains(StringMessages.SISKI) ||
+                command.contains(StringMessages.SISKI_ENG1) ||
+                command.contains(StringMessages.SISKI_ENG2)) {
             String url = imageLoaderService.getPhotoUrl();
             String photoName = imageLoaderService.getRandomImage();
             new SendPhoto(url, photoName).send(restService, updateBody);

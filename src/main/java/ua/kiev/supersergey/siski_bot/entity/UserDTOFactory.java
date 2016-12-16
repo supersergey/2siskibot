@@ -1,7 +1,9 @@
 package ua.kiev.supersergey.siski_bot.entity;
 
-import com.google.appengine.api.datastore.Entity;
-import org.joda.time.DateTime;
+import com.google.cloud.datastore.BaseEntity;
+import com.google.cloud.datastore.DatastoreException;
+import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.ProjectionEntity;
 
 import java.util.Date;
 
@@ -26,12 +28,17 @@ public class UserDTOFactory {
 
     public static UserDTO getUserFromEntity(Entity e) {
         UserDTO result = new UserDTO();
-        result.setId((long) e.getProperty("user_id"));
-        result.setFirstName((String) e.getProperty("first_name"));
-        result.setLastName((String) e.getProperty("last_name"));
-        result.setMessageId((long) e.getProperty("message_id"));
-        result.setMessageText((String) e.getProperty("message_text"));
-        result.setDate((long) e.getProperty("created"));
+        result.setId(e.getKey().getId());
+        try {
+            result.setFirstName(e.getString("first_name"));
+        } catch (DatastoreException ex) {}
+        try {
+            result.setFirstName(e.getString("fist_name"));
+        } catch (DatastoreException ex) {}
+        result.setLastName(e.getString("last_name"));
+        result.setMessageId(e.getLong("message_id"));
+        result.setMessageText(e.getString("message_text"));
+        result.setDate(e.getLong("created"));
         return result;
     }
 }
