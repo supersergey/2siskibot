@@ -12,10 +12,7 @@ public class AnswerCallbackQuery {
     private String id;
     private String text;
 
-    public AnswerCallbackQuery() {
-    }
-
-    public AnswerCallbackQuery(String id, String text) {
+    private AnswerCallbackQuery(String id, String text) {
         this.id = id;
         this.text = text;
     }
@@ -34,5 +31,12 @@ public class AnswerCallbackQuery {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public static class AnswerCallbackQueryFactory {
+        public static AnswerCallbackQuery getAnswerCallbackQuery(CallbackQuery query, String text) {
+            String id = query.getId();
+            return new AnswerCallbackQuery(id, text);
+        }
     }
 }

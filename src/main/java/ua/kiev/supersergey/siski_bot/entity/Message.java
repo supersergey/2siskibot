@@ -9,18 +9,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message {
     @JsonProperty("message_id")
-    private int messageId;
+    private long messageId;
     private User from;
     private String text;
 
     public Message() {
     }
 
-    public int getMessageId() {
+    public long getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(int messageId) {
+    public void setMessageId(long messageId) {
         this.messageId = messageId;
     }
 

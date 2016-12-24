@@ -2,6 +2,8 @@ package ua.kiev.supersergey.siski_bot.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.util.StringUtils;
+import ua.kiev.supersergey.siski_bot.entity.constants.StringMessages;
 
 /**
  * Created by sergey on 29.11.2016.
@@ -39,5 +41,17 @@ public class UpdateBody {
 
     public void setCallBackQuery(CallbackQuery callBackQuery) {
         this.callBackQuery = callBackQuery;
+    }
+
+    public boolean hasMessage() {
+        return message != null;
+    }
+
+    public boolean hasCallback() {
+        return callBackQuery != null;
+    }
+
+    public boolean isNotifyMessage() {
+        return hasMessage() && message.getText().equals(StringMessages.NOTIFY);
     }
 }

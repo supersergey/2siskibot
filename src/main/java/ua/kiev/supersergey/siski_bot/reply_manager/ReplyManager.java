@@ -7,38 +7,38 @@ import ua.kiev.supersergey.siski_bot.actions.SendCallbackQuery;
 import ua.kiev.supersergey.siski_bot.actions.SendPhoto;
 import ua.kiev.supersergey.siski_bot.actions.SendTextMessage;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
-import ua.kiev.supersergey.siski_bot.entity.UserDTOFactory;
 import ua.kiev.supersergey.siski_bot.entity.constants.StringMessages;
 import ua.kiev.supersergey.siski_bot.service.images.ImageLoaderService;
 import ua.kiev.supersergey.siski_bot.service.rating.RatingService;
 import ua.kiev.supersergey.siski_bot.service.rest.RestService;
-import ua.kiev.supersergey.siski_bot.service.storage.StorageService;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by sergey on 30.11.2016.
  */
 @Component
-public class ReplyManager implements Runnable {
+public class ReplyManager implements Observer {
     @Autowired
     private RestService restService;
     @Autowired
     private ImageLoaderService imageLoaderService;
     @Autowired
     private RatingService ratingService;
-    @Autowired
-    private StorageService storageService;
 
     @Override
-    public void run() {
-        UpdateBody updateBody = ReplyQueue.getNext();
+    public void update(Observable o, Object arg) {
+        UpdateBody updateBody = (UpdateBody) arg;
         if (updateBody != null) {
             if (updateBody.getCallBackQuery() != null) {
                 ratingService.addRating(updateBody);
                 new SendCallbackQuery().send(restService, updateBody);
             } else {
-                String command = updateBody.getMessage().getText();
-                doReply(updateBody, command);
-                storageService.add(UserDTOFactory.getUserDTO(updateBody));
+                if (updateBody.getMessage() != null) {
+                    String command = updateBody.getMessage().getText();
+                    doReply(updateBody, command);
+                }
             }
         }
     }
@@ -57,6 +57,10 @@ public class ReplyManager implements Runnable {
             return;
         }
         command = command.toLowerCase();
+        if (command.equalsIgnoreCase(StringMessages.NOTIFY)) {
+            new SendTextMessage(StringMessages.NOTIFY_TEXT).send(restService, updateBody);
+            return;
+        }
         if (command.contains(StringMessages.SISKI) ||
                 command.contains(StringMessages.SISKI_ENG1) ||
                 command.contains(StringMessages.SISKI_ENG2)) {

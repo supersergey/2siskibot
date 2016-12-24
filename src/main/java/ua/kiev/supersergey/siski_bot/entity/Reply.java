@@ -12,34 +12,34 @@ import ua.kiev.supersergey.siski_bot.entity.keyboard.StartKeyboard;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Reply {
     @JsonProperty("chat_id")
-    private int chatId;
+    private long chatId;
     private String text;
     @JsonProperty("reply_to_message_id")
-    private int replyToMessageId;
+    private long replyToMessageId;
     @JsonProperty("reply_markup")
     private AbstractKeyboard keyboard;
 
     public Reply() {
     }
 
-    public Reply(int chatId, String text, int replyToMessageId, AbstractKeyboard keyboard) {
+    public Reply(long chatId, String text, long replyToMessageId, AbstractKeyboard keyboard) {
         this.chatId = chatId;
         this.text = text;
         this.replyToMessageId = replyToMessageId;
         this.keyboard = keyboard;
     }
 
-    public Reply(int chatId, String text, AbstractKeyboard keyboard) {
+    public Reply(long chatId, String text, AbstractKeyboard keyboard) {
         this.chatId = chatId;
         this.text = text;
         this.keyboard = keyboard;
     }
 
-    public int getChatId() {
+    public long getChatId() {
         return chatId;
     }
 
-    public void setChatId(int chatId) {
+    public void setChatId(long chatId) {
         this.chatId = chatId;
     }
 
@@ -51,11 +51,11 @@ public class Reply {
         this.text = text;
     }
 
-    public int getReplyToMessageId() {
+    public long getReplyToMessageId() {
         return replyToMessageId;
     }
 
-    public void setReplyToMessageId(int replyToMessageId) {
+    public void setReplyToMessageId(long replyToMessageId) {
         this.replyToMessageId = replyToMessageId;
     }
 }

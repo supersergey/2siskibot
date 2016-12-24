@@ -11,18 +11,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Created by sergey on 30.11.2016.
  */
 @Service
-public class ReplyQueue {
-    private static ConcurrentLinkedQueue<UpdateBody> pending;
-
-    public static void addUpdate(UpdateBody updateBody) {
-        if (pending == null) {
-            pending = new ConcurrentLinkedQueue<>();
-        }
-        pending.add(updateBody);
+public class ReplyQueue extends Observable{
+    public void addUpdate(UpdateBody updateBody) {
+        this.setChanged();
+        notifyObservers(updateBody);
     }
-
-    public static UpdateBody getNext() {
-        return pending.poll();
-    }
-
 }

@@ -1,7 +1,7 @@
 package ua.kiev.supersergey.siski_bot.actions;
 
 import ua.kiev.supersergey.siski_bot.entity.AnswerCallbackQuery;
-import ua.kiev.supersergey.siski_bot.entity.AnswerCallbackQueryFactory;
+import ua.kiev.supersergey.siski_bot.entity.AnswerCallbackQuery.*;
 import ua.kiev.supersergey.siski_bot.entity.Message;
 import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 import ua.kiev.supersergey.siski_bot.service.rest.RestService;

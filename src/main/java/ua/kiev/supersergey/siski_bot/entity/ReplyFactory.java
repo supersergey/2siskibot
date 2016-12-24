@@ -10,14 +10,14 @@ import ua.kiev.supersergey.siski_bot.entity.keyboard.AbstractKeyboard;
  */
 public class ReplyFactory {
     public static Reply createReply(UpdateBody body, String messageText, AbstractKeyboard keyboard) {
-        int id = body.getMessage().getFrom().getId();
+        long id = body.getMessage().getFrom().getId();
         String firstName = body.getMessage().getFrom().getFirstName();
-        int messageId = body.getMessage().getMessageId();
+        long messageId = body.getMessage().getMessageId();
         return new Reply(id, String.format(messageText, firstName), messageId, keyboard);
     }
 
     public static Reply createPhotoReply(UpdateBody body, String photoUrl, AbstractKeyboard keyboard) {
-        int id = body.getMessage().getFrom().getId();
+        long id = body.getMessage().getFrom().getId();
         String firstName = body.getMessage().getFrom().getFirstName();
         return new PhotoReply(id, firstName, keyboard, photoUrl);
     }

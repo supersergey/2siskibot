@@ -14,7 +14,7 @@ public class PhotoReply extends Reply {
     private String photo;
     private String caption = "Зацени сисечки, %s!";
 
-    public PhotoReply(int chatId, String userName, AbstractKeyboard keyboard, String photoUrl) {
+    public PhotoReply(long chatId, String userName, AbstractKeyboard keyboard, String photoUrl) {
         super(chatId, userName, keyboard);
         caption = String.format(caption, userName);
         this.photo = photoUrl;

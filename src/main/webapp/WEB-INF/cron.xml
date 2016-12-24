@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+    <cron>
+        <url>/notify?days=7</url>
+        <description>daily summary job</description>
+        <schedule>every day 15:00</schedule>
+    </cron>
+    <cron>
+        <url>/notify?days=14</url>
+        <description>daily summary job</description>
+        <schedule>every day 15:05</schedule>
+    </cron>
+    <cron>
+        <url>/notify?days=30</url>
+        <description>daily summary job</description>
+        <schedule>every day 15:10</schedule>
+    </cron>
+</cronentries>

@@ -2,12 +2,13 @@
 package ua.kiev.supersergey.siski_bot.service.storage;
 
 import com.google.cloud.datastore.*;
+import ua.kiev.supersergey.siski_bot.entity.Update;
+import ua.kiev.supersergey.siski_bot.entity.UpdateBody;
 import ua.kiev.supersergey.siski_bot.entity.UserDTO;
-import ua.kiev.supersergey.siski_bot.entity.UserDTOFactory;
+import ua.kiev.supersergey.siski_bot.entity.UserDTO.*;
+import ua.kiev.supersergey.siski_bot.entity.constants.StringMessages;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by sergey on 08.12.2016.
@@ -29,6 +30,14 @@ public class StorageServiceImpl implements StorageService {
             this.datastoreNew = DatastoreOptions.getDefaultInstance().getService();
 //            this.keyFactory = datastore.newKeyFactory().setKind("user");
             this.keyFactoryNew = datastoreNew.newKeyFactory().setKind(USER_NEW_KIND);
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        UpdateBody updateBody = (UpdateBody) arg;
+        if (!updateBody.isNotifyMessage() && !updateBody.hasCallback()) {
+            add(UserDTOFactory.getUserDTO((UpdateBody) arg));
         }
     }
 
@@ -67,8 +76,8 @@ public class StorageServiceImpl implements StorageService {
                     .setKind(USER_NEW_KIND)
                     .setFilter(
                             StructuredQuery.CompositeFilter.and(
-                                    StructuredQuery.PropertyFilter.ge("created", current.getTime() - (days*60*60*24*1000 + ONE_DAY)),
-                                    StructuredQuery.PropertyFilter.le("created", current.getTime() - (days*60*60*24*1000))))
+                                    StructuredQuery.PropertyFilter.ge("created", current.getTime() - (days * 60L * 60L * 24L * 1000L + ONE_DAY)),
+                                    StructuredQuery.PropertyFilter.le("created", current.getTime() - (days * 60L * 60L * 24L * 1000L))))
                     .setOrderBy(StructuredQuery.OrderBy.asc("created"))
                     .build();
         } else {
